@@ -1,0 +1,61 @@
+"""Functions to help edit essay homework using string manipulation."""
+
+
+def capitalize_title(title):
+    """Convert the first letter of each word in the title to uppercase if needed.
+
+    :param title: str - title string that needs title casing.
+    :return: str - title string in title case (first letters capitalized).
+    """
+    words = title.split(' ')
+    new_words = []
+    for word in words:
+        if word:
+            new_words.append(word[0].upper() + word[1:].lower())
+        else:
+            new_words.append(word)
+    return ' '.join(new_words)
+
+
+def check_sentence_ending(sentence):
+    """Check the ending of the sentence to verify that a period is present.
+
+    :param sentence: str - a sentence to check.
+    :return: bool - return True if punctuated correctly with period, False otherwise.
+    """
+    if len(sentence) == 0:
+        return False
+    return sentence[len(sentence)-1] == '.'  
+
+def clean_up_spacing(sentence):
+    """Verify that there isn't any whitespace at the start and end of the sentence.
+
+    :param sentence: str - a sentence to clean of leading and trailing space characters.
+    :return: str - a sentence that has been cleaned of leading and trailing space characters.
+    """
+    start = 0
+    end = len(sentence)-1
+    while start <= end and sentence[start] == ' ':
+        start += 1
+    while end >= start and sentence[end] == ' ':
+        end -= 1
+    return sentence[start:end+1]
+
+def replace_word_choice(sentence, old_word, new_word):
+    """Replace a word in the provided sentence with a new one.
+
+    :param sentence: str - a sentence to replace words in.
+    :param old_word: str - word to replace.
+    :param new_word: str - replacement word.
+    :return: str - input sentence with new words in place of old words.
+    """
+    result = ''
+    ct = 0
+    while ct < len(sentence):
+        if sentence[ct:ct+len(old_word)] == old_word:
+            result += new_word
+            ct += len(old_word)
+        else:
+            result += sentence[ct]
+            ct += 1
+    return result
